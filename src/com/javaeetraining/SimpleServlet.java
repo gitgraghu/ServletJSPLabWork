@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 /**
  * Servlet implementation class SimpleServlet
  */
@@ -66,7 +70,13 @@ public class SimpleServlet extends HttpServlet {
 //		response.getWriter().write(LocalDateTime.now().toString());
 		String name = request.getParameter("user");
 		String password = request.getParameter("password");
-		if("admin".equals(name) && "password".equals(password)){
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		User user = (User)session.get(User.class, 1);
+		session.close();
+		
+		if(user!=null && user.getUsername().equals(name) && user.getPassword().equals(password)){
 			Cookie usercookie = new Cookie("userid", "1");
 			response.addCookie(usercookie);
 //			response.getWriter().write("Welcome " + name + " !");
