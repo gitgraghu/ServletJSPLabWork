@@ -38,6 +38,9 @@ public class SimpleServlet extends HttpServlet {
 			Cookie usercookie = new Cookie("userid", "1");
 			response.addCookie(usercookie);
 //			response.getWriter().write("Welcome " + name + " !");
+			
+			request.setAttribute("message","Welcome, today is Monday ..");
+			
 			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");
 			homedispatch.forward(request, response);
 		}

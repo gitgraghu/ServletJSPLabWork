@@ -8,5 +8,6 @@
 </head>
 <body>
 <p> Welcome to the Home page !!</p>
+<p> Message: ${message} </p>
 </body>
 </html>
