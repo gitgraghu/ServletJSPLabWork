@@ -28,5 +28,11 @@
 <p> No items to display.. </p>
 </c:if>
 
+<form method="post" action="logout">
+<p>
+<input type=submit value="Logout" />
+</p>
+</form>
+
 </body>
 </html>

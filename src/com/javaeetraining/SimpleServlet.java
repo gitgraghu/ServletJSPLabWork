@@ -1,6 +1,7 @@
 package com.javaeetraining;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor;
 
 /**
  * Servlet implementation class SimpleServlet
@@ -80,8 +82,8 @@ public class SimpleServlet extends HttpServlet {
 			Cookie usercookie = new Cookie("userid", "1");
 			response.addCookie(usercookie);
 //			response.getWriter().write("Welcome " + name + " !");
-			
-			request.setAttribute("message","Welcome, today is Monday ..");
+
+			request.setAttribute("message","Welcome, today is " + LocalDateTime.now().getDayOfWeek().name() + " !");
 			
 			List<Item> items = initializeItems();
 			request.setAttribute("data", items);
