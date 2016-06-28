@@ -72,8 +72,9 @@ public class SimpleServlet extends HttpServlet {
 //		response.getWriter().write(LocalDateTime.now().toString());
 		String name = request.getParameter("user");
 		String password = request.getParameter("password");
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
+//		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+//		Session session = sessionFactory.openSession();
+		Session session = HibernateUtilities.getSessionFactory().openSession();
 		session.beginTransaction();
 		User user = (User)session.get(User.class, 1);
 		session.close();
