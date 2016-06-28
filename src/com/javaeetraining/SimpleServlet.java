@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SimpleServlet
  */
-@WebServlet("/home")
+@WebServlet("/login")
 public class SimpleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +30,18 @@ public class SimpleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().write(LocalDateTime.now().toString());
+//		response.getWriter().write(LocalDateTime.now().toString());
+		String name = request.getParameter("user");
+		String password = request.getParameter("password");
+		if("admin".equals(name) && "password".equals(password)){
+			Cookie usercookie = new Cookie("userid", "1");
+			response.addCookie(usercookie);
+			response.getWriter().write("Welcome " + name + " !");
+		}
+		else{
+			response.getWriter().write("Bad Login ");
+			response.getWriter().write("<a href=\"index.jsp\">Back to Login page</a>");
+		}
 	}
 
 	/**
