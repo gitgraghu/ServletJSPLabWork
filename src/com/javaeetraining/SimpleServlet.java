@@ -3,6 +3,7 @@ package com.javaeetraining;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -36,7 +37,9 @@ public class SimpleServlet extends HttpServlet {
 		if("admin".equals(name) && "password".equals(password)){
 			Cookie usercookie = new Cookie("userid", "1");
 			response.addCookie(usercookie);
-			response.getWriter().write("Welcome " + name + " !");
+//			response.getWriter().write("Welcome " + name + " !");
+			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");
+			homedispatch.forward(request, response);
 		}
 		else{
 			response.getWriter().write("Bad Login ");
