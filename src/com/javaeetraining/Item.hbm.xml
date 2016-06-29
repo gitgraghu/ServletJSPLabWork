@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 29, 2016 10:15:03 AM by Hibernate Tools 3.5.0.Final -->
+<!-- Generated Jun 29, 2016 2:50:29 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.javaeetraining.Item" table="ITEMS">
-        <id name="name" type="java.lang.String">
-            <column name="NAME" />
+        <id name="itemid" type="int">
+            <column name="ITEMID" />
             <generator class="assigned" />
         </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
         <property name="date" type="java.lang.String">
             <column name="DATE" />
         </property>
@@ -20,8 +23,8 @@
         <property name="price" type="int">
             <column name="PRICE" />
         </property>
-        <property name="itemid" type="int">
-        	<column name="ITEMID" />
-        </property>
+        <many-to-one name="user" class="com.javaeetraining.User" access="field" fetch="join">
+            <column name="USERID" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

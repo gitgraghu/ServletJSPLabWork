@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,15 +15,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor;
 
 /**
  * Servlet implementation class SimpleServlet
  */
-@WebServlet("/login")
+@WebServlet("/login-post")
 public class SimpleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,61 +40,34 @@ public class SimpleServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    private List<Item> initializeItems(){
-    	Session session = HibernateUtilities.getSessionFactory().openSession();
-		session.beginTransaction();
-		
-		List<Item> items = (List<Item>)session.createCriteria(Item.class).list();
+    private List<Item> initializeItems(User user){
+    	
+		List<Item> items = new ArrayList<>();
 
-		session.close();
-		
-//		Item pen = new Item();
-//		pen.setName("Pen");
-//		pen.setDescription("Ball point pen");
-//		pen.setDate("06/01/2016");
-//		pen.setPrice(15);
-//		pen.setQuantity(40);
-//		items.add(pen);
-//		
-//		Item notebook = new Item();
-//		notebook.setName("Notebook");
-//		notebook.setDescription("80 page ruled notebook");
-//		notebook.setDate("06/01/2016");
-//		notebook.setPrice(10);
-//		notebook.setQuantity(20);
-//		items.add(notebook);
-//		
-//		
-//		Item bag = new Item();
-//		bag.setName("Bag");
-//		bag.setDescription("School bag");
-//		bag.setDate("06/01/2016");
-//		bag.setPrice(20);
-//		bag.setQuantity(10);
-//		items.add(bag);
-//		
+    	Set<Item> useritems = user.getItems();
+    	for(Item item: useritems){
+    		items.add(item);
+    	}
+    
 		return items;
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().write(LocalDateTime.now().toString());
+
 		String name = request.getParameter("user");
 		String password = request.getParameter("password");
-//		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-//		Session session = sessionFactory.openSession();
 		Session session = HibernateUtilities.getSessionFactory().openSession();
 		session.beginTransaction();
-		User user = (User)session.get(User.class, 1);
-		session.close();
+		Query query = session.createQuery("from User as user where user.username = :name").setString("name", name);
+		List<User> userlist = query.list();
 		
-		if(user!=null && user.getUsername().equals(name) && user.getPassword().equals(password)){
-			Cookie usercookie = new Cookie("userid", "1");
+		if(!userlist.isEmpty() && userlist.get(0).getUsername().equals(name) && userlist.get(0).getPassword().equals(password)){
+			Cookie usercookie = new Cookie("userid", Integer.toString(userlist.get(0).getUserid()));
 			response.addCookie(usercookie);
-//			response.getWriter().write("Welcome " + name + " !");
 
 			request.setAttribute("message","Welcome, today is " + LocalDateTime.now().getDayOfWeek().name() + " !");
 			
-			List<Item> items = initializeItems();
+			List<Item> items = initializeItems(userlist.get(0));
+			session.close();
 			request.setAttribute("data", items);
 			
 			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");

@@ -4,10 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Login</title>
 </head>
 <body>
 <%@include file="WEB-INF/header.jsp" %>
-<h2>Welcome to the Home page. Login to get started !!</h2>
+<h2>Enter Login credentials:</h2>
+<form method="post" action="login-post">
+<p><input type="text" name="user" /></p>
+<p><input type="password" name="password" /></p>
+<p><input type="submit" value="Login" /></p>
+</form>
 </body>
 </html>

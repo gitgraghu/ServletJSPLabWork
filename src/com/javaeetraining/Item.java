@@ -7,6 +7,9 @@ public class Item {
 	private int quantity;
 	private int price;
 	private int itemid;
+	
+	private User user;
+	
 	public String getName() {
 		return name;
 	}
@@ -42,6 +45,12 @@ public class Item {
 	}
 	public void setItemid(int itemid) {
 		this.itemid = itemid;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

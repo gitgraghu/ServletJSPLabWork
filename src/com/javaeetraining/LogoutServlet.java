@@ -36,7 +36,7 @@ public class LogoutServlet extends HttpServlet {
 				cookie.setValue("");
 			}
 		}
-		RequestDispatcher indexpage = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher indexpage = request.getRequestDispatcher("/login.jsp");
 		indexpage.forward(request, response);
 	}
 

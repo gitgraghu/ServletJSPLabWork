@@ -8,7 +8,8 @@
 <title>Home</title>
 </head>
 <body>
-<p> Welcome to the Home page !!</p>
+<%@include file="header.jsp" %>
+<h2>Welcome to the Home page.</h2>
 <p> Message: ${message} </p>
 <table>
 <tr><th>Name</th><th>Description</th><th>Date</th><th>Price</th><th>Quantity</th></tr>
@@ -27,12 +28,5 @@
 <c:if test="${data == null}">
 <p> No items to display.. </p>
 </c:if>
-
-<form method="post" action="logout">
-<p>
-<input type=submit value="Logout" />
-</p>
-</form>
-
 </body>
 </html>
