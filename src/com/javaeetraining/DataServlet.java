@@ -34,14 +34,22 @@ public class DataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     
-    private List<Item> initializeItems(User user){
+    @SuppressWarnings({ "unchecked", "deprecation" })
+	private List<Item> initializeItems(User user){
     	
  		List<Item> items = new ArrayList<>();
 
-     	Set<Item> useritems = user.getItems();
-     	for(Item item: useritems){
-     		items.add(item);
-     	}
+ 		if(user.getUsername().equals("admin")){
+ 			Session session = HibernateUtilities.getSessionFactory().openSession();
+			session.beginTransaction();
+			items = (List<Item>)session.createCriteria(Item.class).list();
+ 		}
+ 		else{
+	     	Set<Item> useritems = user.getItems();
+	     	for(Item item: useritems){
+	     		items.add(item);
+	     	}
+ 		}
      
  		return items;
      }
