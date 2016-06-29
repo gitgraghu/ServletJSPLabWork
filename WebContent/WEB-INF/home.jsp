@@ -11,22 +11,5 @@
 <%@include file="header.jsp" %>
 <h2>Welcome to the Home page.</h2>
 <p> Message: ${message} </p>
-<table>
-<tr><th>Name</th><th>Description</th><th>Date</th><th>Price</th><th>Quantity</th></tr>
-
-<c:forEach items="${data}" var="item">
-<tr>
-<td>${item.name}</td>
-<td>${item.description}</td>
-<td>${item.date}</td>
-<td>${item.price}</td>
-<td>${item.quantity}</td>
-</tr>
-</c:forEach> 
-</table>
-
-<c:if test="${data == null}">
-<p> No items to display.. </p>
-</c:if>
 </body>
 </html>
