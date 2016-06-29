@@ -48,23 +48,27 @@ public class DataServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int userid = 0;
+		int userid =0 ;
 		for(Cookie cookie: request.getCookies()){
 			if(cookie.getName().equals("userid")){
 				userid = Integer.parseInt(cookie.getValue());
 			}
 		}
 		
-		Session session = HibernateUtilities.getSessionFactory().openSession();
-		session.beginTransaction();
-		User user = (User)session.get(User.class, userid);
-		List<Item> items = initializeItems(user);
-		request.setAttribute("data", items);
-		session.close();
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/data.jsp");
-		dispatch.forward(request, response);
-		
+		if(userid!=0){
+			Session session = HibernateUtilities.getSessionFactory().openSession();
+			session.beginTransaction();
+			User user = (User)session.get(User.class, userid);
+			List<Item> items = initializeItems(user);
+			request.setAttribute("data", items);
+			session.close();
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/data.jsp");
+			dispatch.forward(request, response);
+		}
+		else{
+			RequestDispatcher dispatch = request.getRequestDispatcher("login.jsp");
+			dispatch.forward(request, response);
+		}
 	}
 
 	/**

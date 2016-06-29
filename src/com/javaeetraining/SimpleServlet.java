@@ -65,10 +65,10 @@ public class SimpleServlet extends HttpServlet {
 			response.addCookie(usercookie);
 
 			request.setAttribute("message","Welcome, today is " + LocalDateTime.now().getDayOfWeek().name() + " !");
-			
-			List<Item> items = initializeItems(userlist.get(0));
+//			
+//			List<Item> items = initializeItems(userlist.get(0));
 			session.close();
-			request.setAttribute("data", items);
+//			request.setAttribute("data", items);
 			
 			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");
 			homedispatch.forward(request, response);

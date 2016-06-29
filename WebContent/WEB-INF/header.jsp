@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul>
 <c:choose>
-<c:when test="${cookie.userid.value != ''}">
+<c:when test="${not empty cookie.userid.value}">
     <li><a href="logout">Logout</a></li>
     <li><a href="data">View Items</a></li>
 </c:when>

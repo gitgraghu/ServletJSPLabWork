@@ -33,7 +33,8 @@ public class LogoutServlet extends HttpServlet {
 		for(Cookie cookie: request.getCookies()){
 			if(cookie.getName().equals("userid")){
 				cookie.setMaxAge(0);
-				cookie.setValue("");
+				cookie.setValue(null);
+				response.addCookie(cookie);
 			}
 		}
 		RequestDispatcher indexpage = request.getRequestDispatcher("/login.jsp");
