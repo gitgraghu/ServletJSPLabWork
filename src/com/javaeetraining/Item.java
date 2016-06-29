@@ -6,6 +6,7 @@ public class Item {
 	private String description;
 	private int quantity;
 	private int price;
+	private int itemid;
 	public String getName() {
 		return name;
 	}
@@ -35,6 +36,12 @@ public class Item {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	public int getItemid() {
+		return itemid;
+	}
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
 	}
 
 }

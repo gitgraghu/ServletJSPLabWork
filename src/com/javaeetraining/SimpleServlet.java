@@ -38,33 +38,38 @@ public class SimpleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     private List<Item> initializeItems(){
-    	List<Item> items = new ArrayList<Item>();
-    	
-		Item pen = new Item();
-		pen.setName("Pen");
-		pen.setDescription("Ball point pen");
-		pen.setDate("06/01/2016");
-		pen.setPrice(15);
-		pen.setQuantity(40);
-		items.add(pen);
+    	Session session = HibernateUtilities.getSessionFactory().openSession();
+		session.beginTransaction();
 		
-		Item notebook = new Item();
-		notebook.setName("Notebook");
-		notebook.setDescription("80 page ruled notebook");
-		notebook.setDate("06/01/2016");
-		notebook.setPrice(10);
-		notebook.setQuantity(20);
-		items.add(notebook);
+		List<Item> items = (List<Item>)session.createCriteria(Item.class).list();
+
+		session.close();
 		
-		
-		Item bag = new Item();
-		bag.setName("Bag");
-		bag.setDescription("School bag");
-		bag.setDate("06/01/2016");
-		bag.setPrice(20);
-		bag.setQuantity(10);
-		items.add(bag);
-		
+//		Item pen = new Item();
+//		pen.setName("Pen");
+//		pen.setDescription("Ball point pen");
+//		pen.setDate("06/01/2016");
+//		pen.setPrice(15);
+//		pen.setQuantity(40);
+//		items.add(pen);
+//		
+//		Item notebook = new Item();
+//		notebook.setName("Notebook");
+//		notebook.setDescription("80 page ruled notebook");
+//		notebook.setDate("06/01/2016");
+//		notebook.setPrice(10);
+//		notebook.setQuantity(20);
+//		items.add(notebook);
+//		
+//		
+//		Item bag = new Item();
+//		bag.setName("Bag");
+//		bag.setDescription("School bag");
+//		bag.setDate("06/01/2016");
+//		bag.setPrice(20);
+//		bag.setQuantity(10);
+//		items.add(bag);
+//		
 		return items;
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
