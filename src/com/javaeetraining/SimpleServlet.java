@@ -25,7 +25,7 @@ import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor;
 /**
  * Servlet implementation class SimpleServlet
  */
-@WebServlet("/login-post")
+@WebServlet("/home")
 public class SimpleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -59,23 +59,24 @@ public class SimpleServlet extends HttpServlet {
 		session.beginTransaction();
 		Query query = session.createQuery("from User as user where user.username = :name").setString("name", name);
 		List<User> userlist = query.list();
+		session.close();
 		
 		if(!userlist.isEmpty() && userlist.get(0).getUsername().equals(name) && userlist.get(0).getPassword().equals(password)){
+	
+			request.setAttribute("message","Welcome, today is " + LocalDateTime.now().getDayOfWeek().name() + " !");
 			Cookie usercookie = new Cookie("userid", Integer.toString(userlist.get(0).getUserid()));
 			response.addCookie(usercookie);
-
-			request.setAttribute("message","Welcome, today is " + LocalDateTime.now().getDayOfWeek().name() + " !");
-//			
-//			List<Item> items = initializeItems(userlist.get(0));
-			session.close();
-//			request.setAttribute("data", items);
+			Cookie usernamecookie = new Cookie("username", userlist.get(0).getUsername());
+			response.addCookie(usernamecookie);
+			request.setAttribute("userid", Integer.toString(userlist.get(0).getUserid()));
+			request.setAttribute("username",userlist.get(0).getUsername());
 			
 			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");
 			homedispatch.forward(request, response);
 		}
 		else{
-			response.getWriter().write("Bad Login ");
-			response.getWriter().write("<a href=\"index.jsp\">Back to Login page</a>");
+			RequestDispatcher dispatch = request.getRequestDispatcher("/WEB-INF/badlogin.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 
