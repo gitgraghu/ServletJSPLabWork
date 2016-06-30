@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Items</title>
 </head>
 <body>
+<%@include file="header.jsp" %>
 <table>
 <tr><th>Name</th><th>Description</th><th>Date</th><th>Price</th><th>Quantity</th></tr>
 
