@@ -2,20 +2,13 @@
 <nav class="navbar navbar-default">
 <div class="container-fluid">
 <c:choose>
-<c:when test="${not empty userid or not empty cookie.userid.value}">
+<c:when test="${not empty userid}">
 	<ul class="nav navbar-nav navbar-left">
 	 	<li role="presentation"><a href="logout">Logout</a></li>
 	 	<li role="presentation"><a href="data">View Items</a></li>
-	 	<li role="presentation"><a href="create.jsp">Create Item</a></li>
+	 	<li role="presentation"><a href="createitem">Create Item</a></li>
  	</ul>
- 	<c:choose>
- 	<c:when test="${not empty username}">
- 		<p class="navbar-text navbar-right">Signed in as ${username}  </p>
-	</c:when>
-	<c:otherwise>
-		<p class="navbar-text navbar-right">Signed in as ${cookie.username.value}  </p>
-	</c:otherwise>
-	</c:choose>
+ 		<p class="navbar-text navbar-right">Signed in as ${username}</p>
 </c:when>
 <c:otherwise>
 <ul class="nav navbar-nav">

@@ -37,6 +37,9 @@ public class LogoutServlet extends HttpServlet {
 				response.addCookie(cookie);
 			}
 		}
+		request.getSession().removeAttribute("userid");
+		request.getSession().removeAttribute("username");
+		
 		RequestDispatcher indexpage = request.getRequestDispatcher("/login.jsp");
 		indexpage.forward(request, response);
 	}

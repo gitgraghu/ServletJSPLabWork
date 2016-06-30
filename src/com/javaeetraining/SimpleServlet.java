@@ -68,8 +68,8 @@ public class SimpleServlet extends HttpServlet {
 			response.addCookie(usercookie);
 			Cookie usernamecookie = new Cookie("username", userlist.get(0).getUsername());
 			response.addCookie(usernamecookie);
-			request.setAttribute("userid", Integer.toString(userlist.get(0).getUserid()));
-			request.setAttribute("username",userlist.get(0).getUsername());
+			request.getSession().setAttribute("userid", Integer.toString(userlist.get(0).getUserid()));
+			request.getSession().setAttribute("username", userlist.get(0).getUsername());
 			
 			RequestDispatcher homedispatch = request.getRequestDispatcher("/WEB-INF/home.jsp");
 			homedispatch.forward(request, response);
